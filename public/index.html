@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Order Registry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">TO</span>
+      <div class="brand-text">
+        <h1>Travel Order Registry</h1>
+        <p>Auto-numbered tracking &middot; MM&#8209;SEQ&#8209;YY</p>
+      </div>
+    </div>
+    <button id="newOrderBtn" class="btn btn-primary">+ New Travel Order</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="toolbar">
+    <input id="searchInput" type="text" placeholder="Search name, division, or TO no..." class="search-input">
+    <select id="statusFilter" class="filter-select">
+      <option value="">All statuses</option>
+      <option value="Still in the Office">Still in the Office</option>
+      <option value="Disseminated to Region">Disseminated to Region</option>
+      <option value="Received from Region">Received from Region</option>
+      <option value="Done">Done</option>
+    </select>
+    <select id="monthFilter" class="filter-select">
+      <option value="">All months</option>
+    </select>
+    <div class="stats" id="statsBar"></div>
+  </section>
+
+  <section id="registry" class="registry">
+    <div class="empty-state" id="emptyState">
+      <p>No travel orders yet.</p>
+      <button class="btn btn-primary" id="emptyStateBtn">Log your first Travel Order</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">New Travel Order</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    </div>
+    <form id="orderForm">
+      <input type="hidden" id="orderId">
+
+      <div class="field">
+        <label>Travel Dates</label>
+        <div class="calendar-widget">
+          <div class="calendar-header">
+            <button type="button" id="calPrevBtn" class="cal-nav" aria-label="Previous month">&lsaquo;</button>
+            <span id="calMonthLabel"></span>
+            <button type="button" id="calNextBtn" class="cal-nav" aria-label="Next month">&rsaquo;</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        <div class="date-chips" id="dateChips"></div>
+      </div>
+
+      <div class="field">
+        <label for="toNoPreview">TO Number <span class="field-hint">(leave blank to auto-generate)</span></label>
+        <input type="text" id="toNoPreview" placeholder="e.g. 07-01-26 — or leave blank">
+      </div>
+
+      <div class="field">
+        <label for="nameInput">Name of Personnel</label>
+        <input type="text" id="nameInput" list="employeeList" placeholder="Start typing a name..." required>
+        <datalist id="employeeList"></datalist>
+      </div>
+
+      <div class="field">
+        <label for="divisionInput">Division</label>
+        <input type="text" id="divisionInput" readonly placeholder="Auto-filled from employee record">
+      </div>
+
+      <div class="field">
+        <label for="statusInput">Status</label>
+        <select id="statusInput">
+          <option value="Still in the Office">Still in the Office</option>
+          <option value="Disseminated to Region">Disseminated to Region</option>
+          <option value="Received from Region">Received from Region</option>
+          <option value="Done">Done</option>
+        </select>
+      </div>
+
+      <div class="field-row" id="progressDatesRow">
+        <div class="field">
+          <label for="dateDisseminated">Date Disseminated to Region</label>
+          <input type="date" id="dateDisseminated" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="dateReceived">Date Received</label>
+          <input type="date" id="dateReceived" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="deleteBtn" style="display:none;">Delete</button>
+        <div class="spacer"></div>
+        <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Travel Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
+     

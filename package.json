@@ -1,0 +1,15 @@
+{
+  "name": "travel-order-tracker",
+  "version": "1.0.0",
+  "description": "Travel Order numbering and tracking system with auto-generated MM-SEQ-YY numbers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
